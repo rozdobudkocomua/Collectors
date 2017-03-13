@@ -1,6 +1,5 @@
 package Collectors.Interfaces.impls;
 
-import com.sun.org.apache.xpath.internal.SourceTree;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.apache.poi.ss.usermodel.Row;
@@ -8,13 +7,12 @@ import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import Collectors.Controllers.Controller ;
-import Collectors.Interfaces.DebtBook ;
+import Collectors.Controllers.Controller;
+import Collectors.Interfaces.DebtBook;
 import Collectors.Objects.Person;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Iterator;
 
 public class CollectionDebtBook implements DebtBook {
@@ -56,37 +54,24 @@ public class CollectionDebtBook implements DebtBook {
         XSSFWorkbook wb = new XSSFWorkbook(fis);  //  пока используем на *.xlsx
         XSSFSheet wb_sheet = wb.getSheetAt(0);
         Iterator<Row> rows = wb_sheet.rowIterator();
-
         if (rows.hasNext()) //пропускаем заголовок таблицы
         {
             rows.next();
         }
-
         while (rows.hasNext()) {
             XSSFRow row = (XSSFRow) rows.next();
             Person person = new Person();
             person.setAddress(row.getCell(0).getStringCellValue());
-            System.out.print(person.getAddress());
-
             if (row.getCell(1).getCellType() == XSSFCell.CELL_TYPE_STRING) {
                 person.setApp(row.getCell(1).getStringCellValue());
-                System.out.print("    " + person.getApp());
-
             }
-
             if (row.getCell(1).getCellType() == XSSFCell.CELL_TYPE_NUMERIC) {
-                person.setApp(Double.toString(row.getCell(1).getNumericCellValue()));
-                System.out.print("    " + person.getApp());
-
+//                person.setApp(Double.toString(row.getCell(1).getNumericCellValue()));
+                person.setApp(String.valueOf(Integer.valueOf(row.getCell(1).toString().replace(".0",""))));
             }
-            // person.setApp(row.getCell(1).getStringCellValue());
-            // System.out.println(" " + person.getApp());
             person.setFio(row.getCell(2).getStringCellValue());
-            System.out.print("  " + person.getFio());
             person.setDebt(row.getCell(3).getNumericCellValue());
-            System.out.print("  " + person.getDebt());
             person.setPhone(Integer.toString((int) row.getCell(4).getNumericCellValue()));
-            System.out.println("  " + person.getPhone());
             personsList.add(person);
         }
         fis.close();

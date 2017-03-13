@@ -5,13 +5,15 @@ import javafx.beans.property.SimpleStringProperty;
 
 public class Person {
     //SimpleStringProperty SimpleDoubleProperty для ускоренного взаимодействия с TableView при редактировании. Т.е. при изменении данных моментально изменяются значения в таблице
-    private SimpleStringProperty fio = new SimpleStringProperty(""); //начальная инициализация, для изюежания ошибок, которые могут возникнуть из-за null
-    private SimpleStringProperty phone = new SimpleStringProperty("");
-    private SimpleStringProperty address = new SimpleStringProperty("");
-    private SimpleStringProperty app = new SimpleStringProperty("");
-    private SimpleDoubleProperty debt = new SimpleDoubleProperty(0);
+    private SimpleStringProperty fio, phone, address, app;  //начальная инициализация, для изюежания ошибок, которые могут возникнуть из-за null
+    private SimpleDoubleProperty debt;
 
     public Person() {
+        this.fio = new SimpleStringProperty("");
+        this.phone = new SimpleStringProperty("");
+        this.address = new SimpleStringProperty("");
+        this.app = new SimpleStringProperty("");
+        this.debt = new SimpleDoubleProperty(0);
     }
 
     public String getFio() {

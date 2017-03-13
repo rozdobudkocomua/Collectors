@@ -4,11 +4,9 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Cell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -20,11 +18,9 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import Collectors.Interfaces.impls.CollectionDebtBook ;
-import Collectors.App;
 import Collectors.Objects.Person;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.*;
@@ -90,7 +86,6 @@ public class Controller {
         columnFIO.setCellValueFactory(new PropertyValueFactory<Person, String>("fio"));
         columnDebt.setCellValueFactory(new PropertyValueFactory<Person, Double>("debt"));
         columnPhone.setCellValueFactory(new PropertyValueFactory<Person, Integer>("phone"));
-
         initListeners();
         fillData();
         initLoader();
@@ -212,7 +207,7 @@ public class Controller {
 
     //сохранение в файл
     public void saveToCall(ActionEvent actionEvent) {
-        System.out.println(phonesToCall(cdb));  // смотрим в консоли список уникальных номеров
+        //System.out.println(phonesToCall(cdb));  // смотрим в консоли список уникальных номеров
         Stage stage = new Stage();
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Сохранение списка на обзвон...");

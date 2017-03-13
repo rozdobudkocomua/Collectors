@@ -3,6 +3,7 @@ package Collectors.Controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -41,16 +42,34 @@ public class EditController {
         Stage stage = (Stage) source.getScene().getWindow();
         stage.hide();
     }
-// кнопка Ок
+
+    // кнопка Ок
     public void actionOk(ActionEvent actionEvent) {
-        person.setAddress(txtAddress.getText());
-        person.setApp(txtApp.getText());
-        person.setFio(txtFio.getText());
-        person.setDebt(Double.parseDouble(txtDebt.getText()));//из строки в дабл, могут быть проблемы
-        person.setPhone(txtPhone.getText());
-        actionClose(actionEvent);
+        boolean bool = true;
+        while (bool) {
+            person.setAddress(txtAddress.getText());
+            person.setApp(txtApp.getText());
+            person.setFio(txtFio.getText());
+            person.setPhone(txtPhone.getText());
+            // Предупреждение при попытке ввести буквы вместо цифр
+            try {
+                person.setDebt(Double.parseDouble(txtDebt.getText()));
+            } catch (NumberFormatException e) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Ошибка");
+                alert.setHeaderText(null);
+                alert.setContentText("Долг: введите числовое значение");
+                alert.setResizable(false);
+                alert.showAndWait();
+                break;
+            }
+            bool = false;
+            actionClose(actionEvent);
+        }
     }
-//редактирование
+
+    //редактирование
+
     public void setPerson(Person person) {
         if (person == null) {
             return;
